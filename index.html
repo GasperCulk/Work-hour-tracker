@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <title>Work Hours Tracker</title>
+</head>  
+<body>
+    <!-- Header with Month and Year -->
+    <h1><p id="monthYear">!!!Ne deluje JavaScript!!!</p></h1>
+    
+    <p>Spletna stran za beleženje delovnih ur prakse.</p>
+
+    <!-- List to display days -->
+    <ul id="listOfFebruaryDays"></ul>
+
+    <!-- Modal for displaying and editing day details -->
+    <div id="editModal" style="display: none;">
+        <div class="modal-content">
+            <h2>Edit Day Details</h2>
+            <form id="editForm">
+                <p id="editDate">Date</p><br>
+
+
+                <label for="editLocation">Location:</label>
+                <select id="editLocation">
+                    <option value="Velenje">Velenje</option>
+                    <option value="Ljubljana">Ljubljana</option>
+                </select><br>
+
+                <label for="editWorkStart">Work Start:</label>
+                <input type="time" id="editWorkStart"><br>
+
+                <label for="editWorkFinish">Work Finish:</label>
+                <input type="time" id="editWorkFinish"><br>
+
+                <label for="editDescription">Description:</label>
+                <textarea id="editDescription"></textarea><br>
+
+                <button type="button" id="saveButton">Save</button>
+                <button type="button" id="closeModal">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script linked at the end of the body for better performance -->
+    <script src="main.js"></script>
+    <script src="data_handler.js"></script>
+
+
+</body>  
+</html>

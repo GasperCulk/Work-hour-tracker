@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "date": "17-02-2025",
+        "location": "Velenje",
+        "workStart": "08:00",
+        "workFinish": "15:30",
+        "description": "Work on project tasks and team meetings."
+    },
+    {
+        "id": 2,
+        "date": "18-02-2025",
+        "location": "Velenje",
+        "workStart": "08:00",
+        "workFinish": "15:30",
+        "description": "Client consultation and report preparation."
+    },
+    {
+        "id": 3,
+        "date": "19-02-2025",
+        "location": "Velenje",
+        "workStart": "08:00",
+        "workFinish": "15:30",
+        "description": "System maintenance and documentation update."
+    },
+    {
+        "id": 4,
+        "date": "20-02-2025",
+        "location": "Velenje",
+        "workStart": "08:00",
+        "workFinish": "15:30",
+        "description": "Testing new features and debugging."
+    },
+    {
+        "id": 5,
+        "date": "21-02-2025",
+        "location": "Velenje",
+        "workStart": "08:00",
+        "workFinish": "15:30",
+        "description": "Finalizing reports and preparing for next week."
+    }
+]
