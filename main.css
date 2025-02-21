@@ -8,6 +8,12 @@ body {
 	background: rgb(35,43,43);
 	color: white;
 
+	.Month {
+		display: flex;
+		flex-flow: column;
+		align-items: center;
+	}
+
 }
 h1 {
 	font-weight: 800;
@@ -16,7 +22,7 @@ h1 {
 
 ul {
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 	flex-wrap: wrap;
 	list-style: none;
 
@@ -38,17 +44,21 @@ ul {
 		border-radius: 10px;
 		border: 1px solid rgba(255, 255, 255, 0.18);
 
-		.DayCss {
+		.DayNumber {
 			font-size: 2rem;
-			margin: 0 0 1rem 0;
+			margin: 0 0 0 0;
 			font-weight: 500;
 		}
+
 	}
 	.today {
 		time {
 			font-weight: 800;
 		}
 		background: #ffffff70;
+	}
+	.pastDays {
+		background: rgba(255, 255, 255, 0.40);
 	}
 }
 

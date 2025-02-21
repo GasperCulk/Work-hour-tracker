@@ -1,69 +1,95 @@
+import { loadWorkDays } from './data_handler.js';
+
 // data
 const currentDate = new Date();
 
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 var FebruaryDays = [];
-
-// get data from data_base.txt
-async function loadFebruaryDays() {
-    // try {
-    //     const response = await fetch('data_base.txt'); // Load the file
-    //     const text = await response.text(); // Read file contents
+var MarchDays = [];
+var AprilDays = [];
 
 
-    //     FebruaryDays = text
-    //         .trim()
-    //         .split("\n") // Split lines
-    //         .map(line => {
-    //             const parts = line.split("##"); // Split by delimiter
-    //             return {
-    //                 id: parseInt(parts[0]),
-    //                 date: parts[1],
-    //                 location: parts[2],
-    //                 workStart: parts[3],
-    //                 workFinish: parts[4],
-    //                 description: parts[5]
-    //             };
-    //         });
 
-        
-    //     console.log(FebruaryDays); // Debugging: Check parsed data
-    //     renderDays();
-
-    // } catch (error) {
-    //     console.error("Error loading data:", error);
-    // }
-}
 
 
 // calendar days
-window.addEventListener("DOMContentLoaded", function() {
-    loadFebruaryDays();
-    var h1 = document.getElementById("monthYear");
+window.addEventListener("DOMContentLoaded", async function() {
+
+    FebruaryDays = await loadWorkDays('./dataFeb.json');  
+    MarchDays    = await loadWorkDays('./dataMar.json');    
+    AprilDays    = await loadWorkDays('./dataApr.json');    
+
+    var hFeb = document.getElementById("monthYearFeb");
+    var hMar = document.getElementById("monthYearMar");
+    var hApr = document.getElementById("monthYearApr");
+
 
     // header month and year
-    var month = months[currentDate.getMonth()];
     var year = currentDate.getFullYear();
-    h1.innerHTML = month + " " + year;
+    hFeb.innerHTML = months[1] + " " + year;
+    hMar.innerHTML = months[2] + " " + year;
+    hApr.innerHTML = months[3] + " " + year;
 
-    // february calendar days
-    renderDays();
+    // month calendar days
+    renderDays("listOfFebruaryDays", FebruaryDays, "sumFeb");
+    renderDays("listOfMarchDays", MarchDays, "sumMar");
+    renderDays("listOfAprilDays", AprilDays, "sumApr");
+
   });
 
-// render days
-function renderDays() {
-var ul = document.getElementById("listOfFebruaryDays");
 
-ul.innerHTML = "";
-FebruaryDays.forEach(day => {
+
+
+// render days
+function renderDays(elementIdOfList, arrayOfMonthDays, sumMonth) {
+
+  var ul = document.getElementById(elementIdOfList);
+  var sumHours = document.getElementById(sumMonth);
+
+  var sum = 0;
+  ul.innerHTML = "";
+
+  arrayOfMonthDays.forEach(day => {
+
+    var workInMinutes = calculateWorkigHours(day.workStart, day.workFinish);
+    sum+= workInMinutes;
+    var workInHours = Math.floor(workInMinutes / 60) + "h " + workInMinutes % 60 + "min";
+
     const li = document.createElement("li");
-    li.innerHTML = `<p class="DayCss">${day.date.split("-")[0]}</p>
-                    ${day.workStart} - ${day.workFinish}`;
+    if (day.workStart == "" || day.workFinish == "") {
+      li.innerHTML = `<p class="DayNumber">${day.id}</p><p>  <br>  </p>${day.date.split("-")[0]}`;
+    } else {
+      li.innerHTML = `<p class="DayNumber">${day.id}</p><p>${day.workStart} - ${day.workFinish}<br>${workInHours}</p>${day.date.split("-")[0]}`;
+      li.classList.add("pastDays");
+    }
     li.addEventListener("click", () => openModal(day));
     ul.appendChild(li);
-});
+  });
+
+  // sum of all working hours
+  sumHours.innerHTML='Skupne ure: '+ Math.floor(sum / 60) + "h " + sum % 60 + "min";
 }
+
+
+
+
+// calculate workig hours [min]
+function calculateWorkigHours(timeStart, timeFinish) {
+  if (timeStart == "" || timeFinish == "") {
+    return 0;
+  }
+
+  const [startHour, startMin] = timeStart.split(":").map(Number);
+  const [endHour, endMin] = timeFinish.split(":").map(Number);
+
+  const startTotal = startHour * 60 + startMin;
+  const endTotal = endHour * 60 + endMin;
+
+  return endTotal - startTotal; // Work duration in minutes
+}
+
+
 
 // Modal 
   function openModal(day) {
@@ -86,7 +112,7 @@ FebruaryDays.forEach(day => {
     };
   }
 
-// Save the edited data
+  // Save the edited data
   function saveChanges(day) {
     day.location = document.getElementById("editLocation").value;
     day.workStart = document.getElementById("editWorkStart").value;
@@ -97,19 +123,10 @@ FebruaryDays.forEach(day => {
     closeModal();
 
     // Re-render the list to reflect changes
-    ul.innerHTML = ''; // Clear existing list
-    FebruaryDays.forEach(day => {
-      var li = document.createElement("li");
-      const dayOfMonth = day.date.split("-")[0];
-      li.innerHTML = `Day ${dayOfMonth}: ${day.workStart} - ${day.workFinish}`;
-      li.addEventListener('click', function() {
-        openModal(day);
-      });
-      ul.appendChild(li);
-    });
+    renderDays();
   }
 
-// Close the modal without saving
+  // Close the modal without saving
   function closeModal() {
     document.getElementById("editModal").style.display = "none";
   }

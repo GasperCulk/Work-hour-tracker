@@ -7,13 +7,31 @@
     <title>Work Hours Tracker</title>
 </head>  
 <body>
-    <!-- Header with Month and Year -->
-    <h1><p id="monthYear">!!!Ne deluje JavaScript!!!</p></h1>
-    
-    <p>Spletna stran za beleženje delovnih ur prakse.</p>
+    <div class="Month">
+        <h1><p id="monthYearFeb">!!!Ne deluje JavaScript!!!</p></h1>
+        
+        <p>Spletna stran za beleženje delovnih ur prakse.</p>
+        <p id="sumFeb">Skupne ure: _____</p>
 
-    <!-- List to display days -->
-    <ul id="listOfFebruaryDays"></ul>
+        <ul id="listOfFebruaryDays"></ul>
+    </div>
+
+    <div class="Month">
+        <h1><p id="monthYearMar">!!!Ne deluje JavaScript!!!</p></h1>
+        
+        <p id="sumMar">Skupne ure: _____</p>
+
+        <ul id="listOfMarchDays"></ul>
+    </div>
+
+    <div class="Month">
+        <h1><p id="monthYearApr">!!!Ne deluje JavaScript!!!</p></h1>
+        
+        <p id="sumApr">Skupne ure: _____</p>
+
+        <ul id="listOfAprilDays"></ul>
+    </div>
+
 
     <!-- Modal for displaying and editing day details -->
     <div id="editModal" style="display: none;">
@@ -45,8 +63,8 @@
     </div>
 
     <!-- Script linked at the end of the body for better performance -->
-    <script src="main.js"></script>
-    <script src="data_handler.js"></script>
+    <script type="module" src="main.js"></script>
+
 
 
 </body>  
